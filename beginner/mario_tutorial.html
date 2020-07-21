@@ -1,0 +1,1776 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to Mad Mario! &mdash; PyTorch Tutorials 1.5.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://pytorch.org/get-started">Get Started</a>
+          </li>
+
+          <li>
+            <div class="ecosystem-dropdown">
+              <a id="dropdownMenuButton" data-toggle="ecosystem-dropdown">
+                Ecosystem
+              </a>
+              <div class="ecosystem-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/hub"">
+                  <span class=dropdown-title>Models (Beta)</span>
+                  <p>Discover, publish, and reuse pre-trained models</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class=dropdown-title>Tools & Libraries</span>
+                  <p>Explore the ecosystem of tools and libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/mobile">Mobile</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/blog/">Blog</a>
+          </li>
+
+          <li class="active">
+            <a href="https://pytorch.org/tutorials">Tutorials</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/docs/stable/index.html">Docs</a>
+          </li>
+
+          <li>
+            <div class="resources-dropdown">
+              <a id="resourcesDropdownButton" data-toggle="resources-dropdown">
+                Resources
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources"">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/features">
+                  <span class=dropdown-title>About</span>
+                  <p>Learn about PyTorch’s features and capabilities</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <a href="https://github.com/pytorch/pytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  1.5.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Tutorials" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="example_tutorial.html">What is PyTorch?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+          
+            Tutorials
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>Welcome to Mad Mario!</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/beginner/mario_tutorial.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <div class="pytorch-call-to-action-links">
+            <div id="tutorial-type">beginner/mario_tutorial</div>
+
+            <div id="google-colab-link">
+              <img class="call-to-action-img" src="../_static/images/pytorch-colab.svg"/>
+              <div class="call-to-action-desktop-view">Run in Google Colab</div>
+              <div class="call-to-action-mobile-view">Colab</div>
+            </div>
+            <div id="download-notebook-link">
+              <img class="call-to-action-notebook-img" src="../_static/images/pytorch-download.svg"/>
+              <div class="call-to-action-desktop-view">Download Notebook</div>
+              <div class="call-to-action-mobile-view">Notebook</div>
+            </div>
+            <div id="github-view-link">
+              <img class="call-to-action-img" src="../_static/images/pytorch-github.svg"/>
+              <div class="call-to-action-desktop-view">View on GitHub</div>
+              <div class="call-to-action-mobile-view">GitHub</div>
+            </div>
+          </div>
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-beginner-mario-tutorial-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<p class="sphx-glr-example-title" id="sphx-glr-beginner-mario-tutorial-py">Mad Mario</p>
+<p>A reinforcement learning tutorial that builds a self-learning
+super mario bro.</p>
+<p>Pre-MVP tutorial for walking users through building a learning Mario.
+Guidelines for creating this notebook (feel free to add/edit): 1.
+Extensive explanation (link to AI cheatsheet where necessary) 2. Only
+ask for core logics</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install gym pyvirtualdisplay &gt; /dev/null 2&gt;&amp;1</span>
+<span class="c1"># !apt-get install -y xvfb python-opengl ffmpeg &gt; /dev/null 2&gt;&amp;1</span>
+<span class="c1"># !pip install gym-super-mario-bros==7.3.0 &gt; /dev/null 2&gt;&amp;1</span>
+
+<span class="c1"># from IPython.display import HTML</span>
+<span class="c1"># from IPython import display as ipythondisplay</span>
+<span class="c1"># import glob</span>
+<span class="c1"># import io</span>
+<span class="c1"># import base64</span>
+
+<span class="c1"># from pyvirtualdisplay import Display</span>
+<span class="c1"># display = Display(visible=0, size=(1400, 900))</span>
+<span class="c1"># display.start()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utility functions to enable video recording of gym environment and displaying it</span>
+<span class="sd">To enable video, just do &quot;env = wrap_env(env)&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># def show_video():</span>
+<span class="c1">#   mp4list = glob.glob(&#39;video/*.mp4&#39;)</span>
+<span class="c1">#   if len(mp4list) &gt; 0:</span>
+<span class="c1">#     mp4 = mp4list[0]</span>
+<span class="c1">#     video = io.open(mp4, &#39;r+b&#39;).read()</span>
+<span class="c1">#     encoded = base64.b64encode(video)</span>
+<span class="c1">#     ipythondisplay.display(HTML(data=&#39;&#39;&#39;&lt;video alt=&quot;test&quot; autoplay</span>
+<span class="c1">#                 loop controls style=&quot;height: 400px;&quot;&gt;</span>
+<span class="c1">#                 &lt;source src=&quot;data:video/mp4;base64,{0}&quot; type=&quot;video/mp4&quot; /&gt;</span>
+<span class="c1">#              &lt;/video&gt;&#39;&#39;&#39;.format(encoded.decode(&#39;ascii&#39;))))</span>
+<span class="c1">#   else:</span>
+<span class="c1">#     print(&quot;Could not find video&quot;)</span>
+
+
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">ConvNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;mini cnn structure</span>
+<span class="sd">    input -&gt; (conv2d + relu) x 3 -&gt; flatten -&gt; (dense + relu) x 2 -&gt; output</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConvNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">input_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3136</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="c1"># input: B x C x H x W</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">input</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+<div class="section" id="welcome-to-mad-mario">
+<h1>Welcome to Mad Mario!<a class="headerlink" href="#welcome-to-mad-mario" title="Permalink to this headline">¶</a></h1>
+<p>We put together this project to walk you through fundamentals of
+reinforcement learning. Along the project, you will implement a smart
+Mario that learns to complete levels on itself. To begin with, you don’t
+need to know anything about Reinforcement Learning (RL). In case you
+wanna peek ahead, here is a <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N?usp=sharing">cheatsheet on RL
+basics</a>
+that we will refer to throughout the project. At the end of the
+tutorial, you will gain a solid understanding of RL fundamentals and
+implement a classic RL algorithm, Q-learning, on yourself.</p>
+<p>It’s recommended that you have familiarity with Python and high school
+or equivalent level of math/statistics background – that said, don’t
+worry if memory is blurry. Just leave comments anywhere you feel
+confused, and we will explain the section in more details.</p>
+<div class="section" id="lets-get-started">
+<h2>Let’s get started!<a class="headerlink" href="#lets-get-started" title="Permalink to this headline">¶</a></h2>
+<p>First thing first, let’s look at what we will build: Just like when we
+first try the game, Mario enters the game not knowing anything about the
+game. It makes random action just to understand the game better. Each
+failure experience adds to Mario’s memory, and as failure accumulates,
+Mario starts to recognize the better action to take in a particular
+scenario. Eventually Mario learns a good strategy and completes the
+level.</p>
+<p>Let’s put the story into pseudo code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="n">N</span> <span class="n">episodes</span><span class="p">:</span>
+  <span class="k">for</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="n">M</span> <span class="n">steps</span> <span class="ow">in</span> <span class="n">each</span> <span class="n">episode</span><span class="p">:</span>
+    <span class="n">Mario</span> <span class="n">makes</span> <span class="n">an</span> <span class="n">action</span>
+    <span class="n">Game</span> <span class="n">gives</span> <span class="n">a</span> <span class="n">feedback</span>
+    <span class="n">Mario</span> <span class="n">remembers</span> <span class="n">the</span> <span class="n">action</span> <span class="ow">and</span> <span class="n">feedback</span>
+    <span class="n">after</span> <span class="n">building</span> <span class="n">up</span> <span class="n">some</span> <span class="n">experiences</span><span class="p">:</span>
+      <span class="n">Mario</span> <span class="n">learns</span> <span class="kn">from</span> <span class="nn">experiences</span>
+</pre></div>
+</div>
+<p>In RL terminology: agent (Mario) interacts with environment (Game) by
+choosing actions, and environment responds with reward and next state.
+Based on the collected (state, action, reward) information, agent learns
+to maximize its future return by optimizing its action policy.</p>
+<p>While these terms may sound scary, in a short while they will all make
+sense. It’d be helpful to review the
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N?usp=sharing">cheatsheet</a>,
+before we start coding. We begin our tutorial with the concept of
+Environment.</p>
+</div>
+</div>
+<div class="section" id="environment">
+<h1>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=OMfuO883blEq">Environment</a>
+is a key concept in reinforcement learning. It’s the world that Mario
+interacts with and learns from. Environment is characterized by
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=36WmEZ-8bn9M">state</a>.
+In Mario, this is the game console consisting of tubes, mushrooms and
+other components. When Mario makes an action, environment responds with
+a
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=rm0EqRQqbo09">reward</a>
+and the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv">next
+state</a>.</p>
+<p>Let’s try running the Mario environment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import gym_super_mario_bros</span>
+<span class="c1"># from gym.wrappers import Monitor</span>
+<span class="c1"># from nes_py.wrappers import JoypadSpace</span>
+
+
+<span class="c1"># env = gym_super_mario_bros.make(&#39;SuperMarioBros-1-1-v0&#39;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">In our environment, Mario can make two actions: walk right and jump right</span>
+<span class="sd">For a full list of possible actions, see</span>
+<span class="sd">https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># env = JoypadSpace(</span>
+<span class="c1">#     env,</span>
+<span class="c1">#     [[&#39;right&#39;],</span>
+<span class="c1">#     [&#39;right&#39;, &#39;A&#39;]]</span>
+<span class="c1"># )</span>
+<span class="c1"># # env = Monitor(env, &#39;./video&#39;, force=True, mode = &#39;evaluation&#39;)</span>
+<span class="c1"># # Restart environment</span>
+<span class="c1"># env.reset()</span>
+<span class="c1"># for _ in range(1000):</span>
+<span class="c1">#   # render video output</span>
+<span class="c1">#   # env.render()</span>
+
+<span class="c1">#   # choose random action</span>
+<span class="c1">#   action = env.action_space.sample()</span>
+
+<span class="c1">#   # perform action on environment, environment provides feedback</span>
+<span class="c1">#   # with env.step() function</span>
+<span class="c1">#   env.step(action=action)</span>
+
+<span class="c1"># # Close environment</span>
+<span class="c1"># env.close()</span>
+
+<span class="c1"># show_video()</span>
+</pre></div>
+</div>
+<div class="section" id="wrappers">
+<h2>Wrappers<a class="headerlink" href="#wrappers" title="Permalink to this headline">¶</a></h2>
+<p>A lot of times we want to perform some pre-processing to the environment
+before we feed its data to the agent. This introduces the idea of a
+wrapper.</p>
+<p>A common wrapper is one that transforms RGB images to grayscale. This
+reduces the size of state representation without losing much
+information. For the agent, its behavior doesn’t change whether it lives
+in a RGB world or grayscale world!</p>
+<p><strong>before wrapper</strong></p>
+<p><img alt="picture" src="https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt" /></p>
+<p><strong>after wrapper</strong></p>
+<p><img alt="picture" src="https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt" /></p>
+<p>We apply a wrapper to environment in this fashion:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="instructions">
+<h3>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h3>
+<p>We want to apply 3 built-in wrappers to the given <code class="docutils literal notranslate"><span class="pre">env</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GrayScaleObservation</span></code>, <code class="docutils literal notranslate"><span class="pre">ResizeObservation</span></code>, and <code class="docutils literal notranslate"><span class="pre">FrameStack</span></code>.</p>
+<p><a class="reference external" href="https://github.com/openai/gym/tree/master/gym/wrappers">https://github.com/openai/gym/tree/master/gym/wrappers</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">FrameStack</span></code> is a wrapper that will allow us to squash consecutive
+frames of the environment into a single observation point to feed to our
+learning model. This way, we can differentiate between when Mario was
+landing or jumping based on his direction of movement in the previous
+several frames.</p>
+<p>Let’s use the following arguments: <code class="docutils literal notranslate"><span class="pre">GrayScaleObservation</span></code>:
+keep_dim=False <code class="docutils literal notranslate"><span class="pre">ResizeObservation</span></code>: shape=84 <code class="docutils literal notranslate"><span class="pre">FrameStack</span></code>:
+num_stack=4</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">from</span> <span class="nn">gym.wrappers</span> <span class="kn">import</span> <span class="n">FrameStack</span><span class="p">,</span> <span class="n">GrayScaleObservation</span>
+<span class="kn">from</span> <span class="nn">nes_py.wrappers</span> <span class="kn">import</span> <span class="n">JoypadSpace</span>
+<span class="kn">import</span> <span class="nn">gym_super_mario_bros</span>
+<span class="kn">from</span> <span class="nn">gym.spaces</span> <span class="kn">import</span> <span class="n">Box</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="k">class</span> <span class="nc">ResizeObservation</span><span class="p">(</span><span class="n">gym</span><span class="o">.</span><span class="n">ObservationWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Downsample the image observation to a square image. &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">obs_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation_space</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">obs_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">observation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation</span><span class="p">):</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">observation</span>
+
+<span class="c1"># the original environment object</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym_super_mario_bros</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;SuperMarioBros-1-1-v0&#39;</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">JoypadSpace</span><span class="p">(</span>
+    <span class="n">env</span><span class="p">,</span>
+    <span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">]]</span>
+<span class="p">)</span>
+
+<span class="c1"># TODO wrap the given env with GrayScaleObservation</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">GrayScaleObservation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">keep_dim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># TODO wrap the given env with ResizeObservation</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ResizeObservation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">84</span><span class="p">)</span>
+<span class="c1"># TODO wrap the given env with FrameStack</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">FrameStack</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">num_stack</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-wrapper">
+<h2>Custom Wrapper<a class="headerlink" href="#custom-wrapper" title="Permalink to this headline">¶</a></h2>
+<p>We also would like you to get a taste of implementing an environment
+wrapper on your own, instead of calling off-the-shelf packages.</p>
+<p>Here is an idea: to speed up training, we can skip some frames and only
+show every n-th frame. While some frames are skipped, it’s important to
+accumulate all the rewards from those skipped frames. Sum all
+intermediate rewards and return on the n-th frame.</p>
+<div class="section" id="instruction">
+<h3>Instruction<a class="headerlink" href="#instruction" title="Permalink to this headline">¶</a></h3>
+<p>Our custom wrapper <code class="docutils literal notranslate"><span class="pre">SkipFrame</span></code> inherits from <code class="docutils literal notranslate"><span class="pre">gym.Wrapper</span></code> and we
+need to implement the <code class="docutils literal notranslate"><span class="pre">step()</span></code> function.</p>
+<p>During each skipped frames inside the for loop, accumulate <code class="docutils literal notranslate"><span class="pre">reward</span></code> to
+<code class="docutils literal notranslate"><span class="pre">total_reward</span></code>, and break if any step gives <code class="docutils literal notranslate"><span class="pre">done=True</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SkipFrame</span><span class="p">(</span><span class="n">gym</span><span class="o">.</span><span class="n">Wrapper</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return only every `skip`-th frame&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_skip</span> <span class="o">=</span> <span class="n">skip</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Repeat action, and sum reward&quot;&quot;&quot;</span>
+        <span class="n">total_reward</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_skip</span><span class="p">):</span>
+            <span class="c1"># TODO accumulate reward and repeat the same action</span>
+            <span class="n">obs</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">obs</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">SkipFrame</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Final Wrapped State</strong></p>
+<div class="figure align-default" id="id11">
+<img alt="picture" src="https://drive.google.com/uc?id=1zZU63qsuOKZIOwWt94z6cegOF2SMEmvD" />
+<p class="caption"><span class="caption-text">picture</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>After applying the above wrappers to the environment, the final wrapped
+state consists of 4 gray-scaled consecutive frames stacked together, as
+shown above in the image on the left. Each time mario makes an action,
+the environment responds with a state of this structure. The structure
+is represented by a 3-D array of size = (4 * 84 * 84).</p>
+</div>
+</div>
+</div>
+<div class="section" id="agent">
+<h1>Agent<a class="headerlink" href="#agent" title="Permalink to this headline">¶</a></h1>
+<p>Let’s now turn to the other core concept in reinforcement learning:
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=OMfuO883blEq">agent</a>.
+Agent interacts with the environment by making
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=chyu7AVObwWP">actions</a>
+following its <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv">action
+policy</a>.
+Let’s review the pseudo code on how agent interacts with the
+environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="n">N</span> <span class="n">episodes</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="n">M</span> <span class="n">steps</span> <span class="ow">in</span> <span class="n">each</span> <span class="n">episode</span><span class="p">:</span>
+  <span class="n">Mario</span> <span class="n">makes</span> <span class="n">an</span> <span class="n">action</span>
+  <span class="n">Game</span> <span class="n">gives</span> <span class="n">a</span> <span class="n">feedback</span>
+  <span class="n">Mario</span> <span class="n">remembers</span> <span class="n">the</span> <span class="n">action</span> <span class="ow">and</span> <span class="n">feedback</span>
+  <span class="n">after</span> <span class="n">building</span> <span class="n">up</span> <span class="n">some</span> <span class="n">experiences</span><span class="p">:</span>
+    <span class="n">Mario</span> <span class="n">learns</span> <span class="kn">from</span> <span class="nn">experiences</span>
+</pre></div>
+</div>
+<p>We create a class, <code class="docutils literal notranslate"><span class="pre">Mario</span></code>, to represent our agent in the game.
+<code class="docutils literal notranslate"><span class="pre">Mario</span></code> should be able to:</p>
+<ul class="simple">
+<li><p>Choose the action to take. <code class="docutils literal notranslate"><span class="pre">Mario</span></code> acts following its <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">optimal
+action
+policy</a>,
+based on the current environment
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=36WmEZ-8bn9M">state</a>.</p></li>
+<li><p>Remember experiences. The experience consists of current environment
+state, current agent action, reward from environment and next
+environment state. <code class="docutils literal notranslate"><span class="pre">Mario</span></code> later uses all these experience to
+update its <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv">action
+policy</a>.</p></li>
+<li><p>Improve action policy over time. <code class="docutils literal notranslate"><span class="pre">Mario</span></code> updates its action policy
+using
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=bBny3BgNbcmh">Q-learning</a>.</p></li>
+</ul>
+<p>In following sections, we use Mario and agent interchangeably.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a state, choose an epsilon-greedy action</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">remember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experience</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add the observation to memory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update online action value (Q) function with a batch of experiences</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<div class="section" id="initialize">
+<h2>Initialize<a class="headerlink" href="#initialize" title="Permalink to this headline">¶</a></h2>
+<p>Before implementing any of the above functions, let’s define some key
+parameters.</p>
+<div class="section" id="id1">
+<h3>Instruction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Initialize these key parameters inside <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1.0</span></code></p>
+</div></blockquote>
+<p>Random Exploration Prabability. Under <cite>some probability
+:math:</cite>epsilon` &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id12"><span class="problematic" id="id13">1eN33dPVtdPViiS1njTW_</span></a>-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv&gt;`__,
+agent does not follow the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">optimal action
+policy</a>,
+but instead chooses a random action to explore the environment. A high
+exploration rate is important at the early stage of learning to ensure
+proper exploration and not falling to local optima. The exploration rate
+should decrease as agent improves its policy.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate_decay:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.99999975</span></code></p>
+</div></blockquote>
+<p>Decay rate of <code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code>. Agent rigorously explores space at
+the early stage, but gradually reduces its exploration rate to maintain
+action quality. In the later stage, agent already learns a fairly good
+policy, so we want it to follow its policy more frequently. Decrease
+<code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code> by the factor of <code class="docutils literal notranslate"><span class="pre">exploration_rate_decay</span></code> each
+time the agent acts.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate_min:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.1</span></code></p>
+</div></blockquote>
+<p>Minimum <code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code> that Mario can decays into. Note that this
+value could either be <code class="docutils literal notranslate"><span class="pre">0</span></code>, in which case Mario acts completely
+deterministiclly, or a very small number.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">discount_factor:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.9</span></code></p>
+</div></blockquote>
+<p>Future reward discount factor. This is <span class="math notranslate nohighlight">\(\gamma\)</span> in the definition
+of
+<a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=6lmIKuxsb6qu">return</a>.
+It serves to make agent give higher weight on the short-term rewards
+over future reward.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">batch_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">32</span></code></p>
+</div></blockquote>
+<p>Number of experiences used to update each time.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">state_dim</span></code></p>
+</div></blockquote>
+<p>State space dimension. In Mario, this is 4 consecutive snapshots of the
+enviroment stacked together, where each snapshot is a 84*84 gray-scale
+image. This is passed in from the environment,
+<code class="docutils literal notranslate"><span class="pre">self.state_dim</span> <span class="pre">=</span> <span class="pre">(4,</span> <span class="pre">84,</span> <span class="pre">84)</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">action_dim</span></code></p>
+</div></blockquote>
+<p>Action space dimension. In Mario, this is the number of total possible
+actions. This is passed in from environment as well.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">memory</span></code></p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">memory</span></code> is a queue structure filled with Mario’s past experiences.
+Each experience consists of (state, next_state, action, reward, done).
+As Mario collects more experiences, old experiences are popped to make
+room for most recent ones. We initialize the memory queue with
+<code class="docutils literal notranslate"><span class="pre">maxlen=100000</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
+       <span class="c1"># state space dimension</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span> <span class="o">=</span> <span class="n">state_dim</span>
+      <span class="c1"># action space dimension</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span> <span class="o">=</span> <span class="n">action_dim</span>
+      <span class="c1"># replay buffer</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+      <span class="c1"># current step, updated everytime the agent acts</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="c1"># TODO: Please initialize other variables as described above</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate</span> <span class="o">=</span> <span class="mf">1.0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate_decay</span> <span class="o">=</span> <span class="mf">0.99999975</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate_min</span> <span class="o">=</span> <span class="mf">0.1</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">discount_factor</span> <span class="o">=</span> <span class="mf">0.9</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="predict-q">
+<h2>Predict <span class="math notranslate nohighlight">\(Q^*\)</span><a class="headerlink" href="#predict-q" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=snRMrCIccEx8">Optimal value action
+function</a>,
+<span class="math notranslate nohighlight">\(Q^*(s, a)\)</span>, is the single most important function in this
+project. <code class="docutils literal notranslate"><span class="pre">Mario</span></code> uses it to choose the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">optimal
+action</a></p>
+<div class="math notranslate nohighlight">
+\[a^*(s) = argmax_{a}Q^*(s, a)\]</div>
+<p>and <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=bBny3BgNbcmh">update its action
+policy</a></p>
+<div class="math notranslate nohighlight">
+\[Q^*(s, a) \leftarrow Q^*(s, a)+\alpha (r + \gamma \max_{a'} Q^*(s', a') -Q^*(s, a))\]</div>
+<p>In this section, let’s implement <code class="docutils literal notranslate"><span class="pre">agent.predict()</span></code> to calculate
+<span class="math notranslate nohighlight">\(Q^*(s, a)\)</span>.</p>
+<div class="section" id="q-online-and-q-target">
+<h3><span class="math notranslate nohighlight">\(Q^*_{online}\)</span> and <span class="math notranslate nohighlight">\(Q^*_{target}\)</span><a class="headerlink" href="#q-online-and-q-target" title="Permalink to this headline">¶</a></h3>
+<p>Let’s review the inputs to <span class="math notranslate nohighlight">\(Q^*(s, a)\)</span> function.</p>
+<p><span class="math notranslate nohighlight">\(s\)</span> is the observed state from environment. After our wrappers,
+<span class="math notranslate nohighlight">\(s\)</span> is a stack of grayscale images. <span class="math notranslate nohighlight">\(a\)</span> is a single integer
+representing the action taken. To deal with image/video signal, we often
+use a <a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html">convolution neural
+network</a>.
+To save you time, we have created a simple
+<code class="docutils literal notranslate"><span class="pre">`ConvNet</span></code> &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id14"><span class="problematic" id="id15">1kptUkdESbxBC-yOfSYngynjV5Hge_</span></a>-t-#scrollTo=M27B_D2WEQ22&gt;`__
+for you.</p>
+<p>Instead of passing action <span class="math notranslate nohighlight">\(a\)</span> together with state <span class="math notranslate nohighlight">\(s\)</span> into
+<span class="math notranslate nohighlight">\(Q^*\)</span> function, we pass only the state. <code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> returns a list
+of real values representing <span class="math notranslate nohighlight">\(Q^*\)</span> for <em>all actions</em>. Later we can
+choose the <span class="math notranslate nohighlight">\(Q^*\)</span> for any specific action <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<!-- Let's now look at Q-learning more closely.
+
+$$
+Q^*(s, a) \leftarrow Q^*(s, a)+\alpha (r + \gamma \max_{a'} Q^*(s', a') -Q^*(s, a))
+$$
+
+$(r + \gamma \max_{a'} Q^*(s', a'))$ is the *TD target* (cheatsheet) and $Q^*(s, a)$ is the *TD estimate* (cheatsheet). $s$ and $a$ are the current state and action, and $s'$ and $a'$ are next state and next action.  --><p>In this section, we define two functions: <span class="math notranslate nohighlight">\(Q_{online}\)</span> and
+<span class="math notranslate nohighlight">\(Q_{target}\)</span>. <em>Both</em> represent the optimal value action function
+<span class="math notranslate nohighlight">\(Q^*\)</span>. Intuitively, we use <span class="math notranslate nohighlight">\(Q_{online}\)</span> to make action
+decisions, and <span class="math notranslate nohighlight">\(Q_{target}\)</span> to improve <span class="math notranslate nohighlight">\(Q_{online}\)</span>. We will
+explain further in details in <a class="reference external" href="https://colab.research.google.com/drive/1kptUkdESbxBC-yOfSYngynjV5Hge_-t-#scrollTo=BOALqrSC5VIf">later
+sections</a>.</p>
+</div>
+<div class="section" id="id2">
+<h3>Instructions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Use our provided
+<code class="docutils literal notranslate"><span class="pre">`ConvNet</span></code> &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id16"><span class="problematic" id="id17">1kptUkdESbxBC-yOfSYngynjV5Hge_</span></a>-t-#scrollTo=M27B_D2WEQ22&gt;`__
+to define <code class="docutils literal notranslate"><span class="pre">self.online_q</span></code> and <code class="docutils literal notranslate"><span class="pre">self.target_q</span></code> separately. Intialize
+<code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> with <code class="docutils literal notranslate"><span class="pre">input_dim=self.state_dim</span></code> and
+<code class="docutils literal notranslate"><span class="pre">output_dim=self.action_dim</span></code> for both <span class="math notranslate nohighlight">\(Q^*\)</span> functions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span>
+      <span class="c1"># TODO: define online action value function</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">online_q</span> <span class="o">=</span> <span class="n">ConvNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">)</span>
+      <span class="c1"># TODO: define target action value function</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">target_q</span> <span class="o">=</span> <span class="n">ConvNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calling-q">
+<h3>Calling <span class="math notranslate nohighlight">\(Q^*\)</span><a class="headerlink" href="#calling-q" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id3">
+<h3>Instruction<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">self.online_q</span></code> and <code class="docutils literal notranslate"><span class="pre">self.target_q</span></code> are optimal value action
+function <span class="math notranslate nohighlight">\(Q^*\)</span>, which take a single input <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<p>Implement <code class="docutils literal notranslate"><span class="pre">Mario.predict()</span></code> to calculate the <span class="math notranslate nohighlight">\(Q^*\)</span> of input
+<span class="math notranslate nohighlight">\(s\)</span>. Here, <span class="math notranslate nohighlight">\(s\)</span> is a batch of states, i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shape</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">=</span> <span class="n">batch_size</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">84</span>
+</pre></div>
+</div>
+<p>Return <span class="math notranslate nohighlight">\(Q^*\)</span> for all possible actions for the entire batch of
+states.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+      <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a state, predict Q values of all possible actions using specified model (either online or target)</span>
+<span class="sd">        Input:</span>
+<span class="sd">          state</span>
+<span class="sd">           dimension of (batch_size * state_dim)</span>
+<span class="sd">          model</span>
+<span class="sd">           either &#39;online&#39; or &#39;target&#39;</span>
+<span class="sd">        Output</span>
+<span class="sd">          pred_q_values (torch.tensor)</span>
+<span class="sd">            dimension of (batch_size * action_dim), predicted Q values for all possible actions given the state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># LazyFrame -&gt; np array -&gt; torch tensor</span>
+        <span class="n">state_float</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+        <span class="c1"># normalize</span>
+        <span class="n">state_float</span> <span class="o">=</span> <span class="n">state_float</span> <span class="o">/</span> <span class="mf">255.</span>
+
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;online&#39;</span><span class="p">:</span>
+          <span class="c1"># TODO return the predicted Q values using self.online_q</span>
+          <span class="n">pred_q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">online_q</span><span class="p">(</span><span class="n">state_float</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span>
+          <span class="c1"># TODO return the predicted Q values using self.target_q</span>
+          <span class="n">pred_q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_q</span><span class="p">(</span><span class="n">state_float</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pred_q_values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="act">
+<h2>Act<a class="headerlink" href="#act" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now look at how Mario should <code class="docutils literal notranslate"><span class="pre">act()</span></code> in the environment.</p>
+<p>Given a state, Mario mostly <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">chooses the action with the highest Q
+value</a>.
+There is an <em>epislon</em> chance that Mario acts randomly instead, which
+encourages environment exploration.</p>
+<div class="section" id="id4">
+<h3>Instruction<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>We will use <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> in this section.
+Familiarize yourself with <a class="reference external" href="https://colab.research.google.com/drive/1D8k6i-TIKfqEHVkzKwYMjJvZRAKe9IuH?usp=sharing">basic syntax with some
+examples</a>.</p>
+<p>We will now implement <code class="docutils literal notranslate"><span class="pre">Mario.act()</span></code>. Recall that we have defined
+<span class="math notranslate nohighlight">\(Q_{online}\)</span> above, which we will use here to calculate Q values
+for all actions given <em>state</em>. We then need to select the action that
+results in largest Q value. We have set up the logic for epsilon-greedy
+policy, and leave it to you to determine the optimal and random action.</p>
+<p>Before implementing <code class="docutils literal notranslate"><span class="pre">Mario.act()</span></code>, let’s first get used to basic
+operations on <em>torch.tensor</em>, which is the data type returned in
+<code class="docutils literal notranslate"><span class="pre">Mario.predict()</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a state, choose an epsilon-greedy action and update value of step</span>
+<span class="sd">        Input</span>
+<span class="sd">          state(np.array)</span>
+<span class="sd">            A single observation of the current state, dimension is (state_dim)</span>
+<span class="sd">        Output</span>
+<span class="sd">          action</span>
+<span class="sd">            An integer representing which action agent will perform</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate</span><span class="p">:</span>
+          <span class="c1"># TODO: choose a random action from all possible actions (self.action_dim)</span>
+          <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+          <span class="c1"># TODO: choose the best action based on self.online_q</span>
+          <span class="n">action_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">)</span>
+          <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">action_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+        <span class="c1"># decrease exploration_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate_decay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exploration_rate</span><span class="p">)</span>
+        <span class="c1"># increment step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">action</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="remember">
+<h2>Remember<a class="headerlink" href="#remember" title="Permalink to this headline">¶</a></h2>
+<p>In order to improve policy, Mario need to collect and save past
+experiences. Each time agent performs an action, it collects an
+experience which includes the current state, action it performs, the
+next state after performing the action, the reward it collected, and
+whether the game is finished or not. We use a Queue structure to save
+historic experience, consisting of (state, next_state, action, reward,
+done). We will refer to this Queue as our memory.</p>
+<div class="section" id="id5">
+<h3>Instruction<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Implement <code class="docutils literal notranslate"><span class="pre">Mario.remember()</span></code> to save the experience to Mario’s memory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">remember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experience</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add the experience to self.memory</span>
+<span class="sd">        Input</span>
+<span class="sd">          experience =  (state, next_state, action, reward, done) tuple</span>
+<span class="sd">        Output</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO Add the experience to memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">experience</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="learn">
+<h2>Learn<a class="headerlink" href="#learn" title="Permalink to this headline">¶</a></h2>
+<p>The entire learning process is based on <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=bBny3BgNbcmh">Q-learning
+algorithm</a>.
+By learning, we mean updating our <span class="math notranslate nohighlight">\(Q^*\)</span> function to better predict
+the optimal value of current state-action pair. We will use both
+<span class="math notranslate nohighlight">\(Q^*_{online}\)</span> and <span class="math notranslate nohighlight">\(Q^*_{target}\)</span> in this section.</p>
+<p>Some key steps to perform: - <strong>Experience Sampling:</strong> We will sample
+experiences from memory as the <em>training data</em> to update
+<span class="math notranslate nohighlight">\(Q^*_{online}\)</span>.</p>
+<ul class="simple">
+<li><p><strong>Evaluating TD Estimate:</strong> Calculate the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=2abP5k2kcRnn">TD
+estimate</a>
+of sampled experiences, using current states and actions. We use
+<span class="math notranslate nohighlight">\(Q^*_{online}\)</span> in this step to directly predict
+<span class="math notranslate nohighlight">\(Q^*(s, a)\)</span>.</p></li>
+<li><p><strong>Evaluating TD Target:</strong> Calculate the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=Q072-fLecSkb">TD
+target</a>
+of sampled experiences, using next states and rewards. We use both
+<span class="math notranslate nohighlight">\(Q^*_{online}\)</span> and <span class="math notranslate nohighlight">\(Q^*_{target}\)</span> to calculate
+<span class="math notranslate nohighlight">\(r + \gamma \max_{a'} Q^*_{target}(s', a')\)</span>, where the
+<span class="math notranslate nohighlight">\(\max_{a'}\)</span> part is determined by <span class="math notranslate nohighlight">\(Q^*_{online}\)</span>.</p></li>
+<li><p><strong>Loss between TD Estimate and TD Target:</strong> Calculate the mean
+squared loss between TD estimate and TD target.</p></li>
+<li><p><strong>Updating :math:`Q^*_{online}`:</strong> Perform an optimization step with
+the above calculated loss to update <span class="math notranslate nohighlight">\(Q^*_{online}\)</span>.</p></li>
+</ul>
+<p>Summarizing the above in pseudo code for <code class="docutils literal notranslate"><span class="pre">Mario.learn()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">enough</span> <span class="n">experiences</span> <span class="n">are</span> <span class="n">collected</span><span class="p">:</span>
+  <span class="n">sample</span> <span class="n">a</span> <span class="n">batch</span> <span class="n">of</span> <span class="n">experiences</span>
+  <span class="n">calculate</span> <span class="n">the</span> <span class="n">predicted</span> <span class="n">Q</span> <span class="n">values</span> <span class="n">using</span> <span class="n">Q_online</span>
+  <span class="n">calculate</span> <span class="n">the</span> <span class="n">target</span> <span class="n">Q</span> <span class="n">values</span> <span class="n">using</span> <span class="n">Q_target</span> <span class="ow">and</span> <span class="n">reward</span>
+  <span class="n">calculate</span> <span class="n">loss</span> <span class="n">between</span> <span class="n">prediction</span> <span class="ow">and</span> <span class="n">target</span> <span class="n">Q</span> <span class="n">values</span>
+  <span class="n">update</span> <span class="n">Q_online</span> <span class="n">based</span> <span class="n">on</span> <span class="n">loss</span>
+</pre></div>
+</div>
+<div class="section" id="experience-sampling">
+<h3>Experience Sampling<a class="headerlink" href="#experience-sampling" title="Permalink to this headline">¶</a></h3>
+<p>Mario learns by drawing past experiences from its memory. The memory is
+a queue data structure that stores each individual experience in the
+format of</p>
+<blockquote>
+<div><p>state, next_state, action, reward, done</p>
+</div></blockquote>
+<p>Examples of some experiences in Mario’s memory:</p>
+<ul class="simple">
+<li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: jump reward: 0.0 done: False</p></li>
+<li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: right reward: -10.0 done: True</p></li>
+<li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: right reward: -10.0 done: True</p></li>
+<li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: jump_right reward: 0.0 done:
+False</p></li>
+<li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: right reward: 10.0 done: False</p></li>
+</ul>
+<p>State/next_state: Observation at timestep <em>t</em>/<em>t+1</em>. They are both of
+type <code class="docutils literal notranslate"><span class="pre">LazyFrame</span></code>.</p>
+<p>Action: Mario’s action during state transition.</p>
+<p>Reward: Environment’s reward during state transition.</p>
+<p>Done: Boolean indicating if next_state is a terminal state (end of
+game). Terminal state has a known Q value of 0.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Instruction<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Sample a batch of experiences from <code class="docutils literal notranslate"><span class="pre">self.memory</span></code> of size
+<code class="docutils literal notranslate"><span class="pre">self.batch_size</span></code>.</p>
+<p>Return a tuple of numpy arrays, in the order of (state, next_state,
+action, reward, done). Each numpy array should have its first dimension
+equal to <code class="docutils literal notranslate"><span class="pre">self.batch_size</span></code>.</p>
+<p>To convert a <code class="docutils literal notranslate"><span class="pre">LazyFrame</span></code> to numpy array, do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state_np_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state_lazy_frame</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input</span>
+<span class="sd">      self.memory (FIFO queue)</span>
+<span class="sd">        a queue where each entry has five elements as below</span>
+<span class="sd">        state: LazyFrame of dimension (state_dim)</span>
+<span class="sd">        next_state: LazyFrame of dimension (state_dim)</span>
+<span class="sd">        action: integer, representing the action taken</span>
+<span class="sd">        reward: float, the reward from state to next_state with action</span>
+<span class="sd">        done: boolean, whether state is a terminal state</span>
+<span class="sd">      self.batch_size (int)</span>
+<span class="sd">        size of the batch to return</span>
+
+<span class="sd">    Output</span>
+<span class="sd">      state, next_state, action, reward, done (tuple)</span>
+<span class="sd">        a tuple of numpy arrays: state, next_state, action, reward, done</span>
+<span class="sd">        state: numpy array of dimension (batch_size x state_dim)</span>
+<span class="sd">        next_state: numpy array of dimension (batch_size x state_dim)</span>
+<span class="sd">        action: numpy array of dimension (batch_size)</span>
+<span class="sd">        reward: numpy array of dimension (batch_size)</span>
+<span class="sd">        done: numpy array of dimension (batch_size)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO convert everything into numpy array</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">batch</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span>
+</pre></div>
+</div>
+<div class="section" id="td-estimate">
+<h3>TD Estimate<a class="headerlink" href="#td-estimate" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=2abP5k2kcRnn">TD
+estimate</a>
+is the estimated <span class="math notranslate nohighlight">\(Q^*(s, a)\)</span> based on <em>current state-action pair
+:math:`s, a`</em>.</p>
+<!-- It represents the best estimate we have so far, and the goal is to keep updating it using TD target (link to Q learning equation) We will use $Q_{online}$ to calculate this.  --><p>Recall our defined <code class="docutils literal notranslate"><span class="pre">Mario.predict()</span></code> above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Instruction<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Using our defined <code class="docutils literal notranslate"><span class="pre">Mario.predict()</span></code> above, calculate the <em>TD Estimate</em>
+of given <code class="docutils literal notranslate"><span class="pre">state</span></code> and <code class="docutils literal notranslate"><span class="pre">action</span></code> with <code class="docutils literal notranslate"><span class="pre">online</span></code> model. Return the
+results in <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code> format.</p>
+<p>Note that returned values from <code class="docutils literal notranslate"><span class="pre">Mario.predict()</span></code> are <span class="math notranslate nohighlight">\(Q^*\)</span> for
+all actions. To locate <span class="math notranslate nohighlight">\(Q^*\)</span> values for specific actions, use
+<a class="reference external" href="https://colab.research.google.com/drive/1D8k6i-TIKfqEHVkzKwYMjJvZRAKe9IuH?usp=sharing">tensor
+indexing</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">calculate_prediction_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input</span>
+<span class="sd">      state (np.array)</span>
+<span class="sd">        dimension is (batch_size x state_dim), each item is an observation</span>
+<span class="sd">        for the current state</span>
+<span class="sd">      action (np.array)</span>
+<span class="sd">        dimension is (batch_size), each item is an integer representing the</span>
+<span class="sd">        action taken for current state</span>
+
+<span class="sd">    Output</span>
+<span class="sd">      pred_q (torch.tensor)</span>
+<span class="sd">        dimension of (batch_size), each item is a predicted Q value of the</span>
+<span class="sd">        current state-action pair</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">curr_state_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">)</span>
+    <span class="c1"># TODO select specific Q values based on input actions</span>
+    <span class="n">curr_state_q</span> <span class="o">=</span> <span class="n">curr_state_q</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">action</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">curr_state_q</span>
+</pre></div>
+</div>
+<div class="section" id="td-target">
+<h3>TD Target<a class="headerlink" href="#td-target" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=Q072-fLecSkb">TD
+target</a>
+is the estimated <span class="math notranslate nohighlight">\(Q^*(s, a)\)</span> <em>based on next state-action pair
+:math:`s’, a’` and reward :math:`r`</em>.</p>
+<p><em>TD target</em> is in the form of</p>
+<div class="math notranslate nohighlight">
+\[r + \gamma \max_{a'} Q^*(s', a')\]</div>
+<p><span class="math notranslate nohighlight">\(r\)</span> is the current reward, <span class="math notranslate nohighlight">\(s'\)</span> is the next state,
+<span class="math notranslate nohighlight">\(a'\)</span> is the next action.</p>
+</div>
+<div class="section" id="caveats">
+<h3>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h3>
+<p><strong>Getting best next action</strong></p>
+<p>Because we don’t know what next action <span class="math notranslate nohighlight">\(a'\)</span> will be, we estimate
+it using next state <span class="math notranslate nohighlight">\(s'\)</span> and <span class="math notranslate nohighlight">\(Q_{online}\)</span>. Specifically,</p>
+<div class="math notranslate nohighlight">
+\[a' = argmax_a Q_{online}(s', a)\]</div>
+<p>That is, we apply <span class="math notranslate nohighlight">\(Q_{online}\)</span> on the next_state <span class="math notranslate nohighlight">\(s'\)</span>, and
+pick the action which will yield the largest Q value, and use that
+action to index into <span class="math notranslate nohighlight">\(Q_{target}\)</span> to calculate <em>TD target</em> . This
+is why, if you compare the function signatures of <code class="docutils literal notranslate"><span class="pre">calculate_target_q</span></code>
+and <code class="docutils literal notranslate"><span class="pre">calculate_pred_q</span></code>, while in <code class="docutils literal notranslate"><span class="pre">calculate_prediction_q</span></code> we have
+<code class="docutils literal notranslate"><span class="pre">action</span></code> and <code class="docutils literal notranslate"><span class="pre">state</span></code> as an input parameter, in
+<code class="docutils literal notranslate"><span class="pre">calculate_target_q</span></code> we only have <code class="docutils literal notranslate"><span class="pre">reward</span></code> and <code class="docutils literal notranslate"><span class="pre">next_state</span></code>.</p>
+<p><strong>Terminal state</strong></p>
+<p>Another small caveat is the terminal state, as recorded with the
+variable <code class="docutils literal notranslate"><span class="pre">done</span></code>, which is 1 when Mario is dead or the game finishes.</p>
+<p>Hence, we need to make sure we don’t keep adding future rewards when
+“there is no future”, i.e. when the game reaches terminal state. Since
+<code class="docutils literal notranslate"><span class="pre">done</span></code> is a boolean, we can multiply <code class="docutils literal notranslate"><span class="pre">1.0</span> <span class="pre">-</span> <span class="pre">done</span></code> with future
+reward. This way, future reward after the terminal state is not taken
+into account in TD target.</p>
+<p>Therefore, the complete <em>TD target</em> is in the form of</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}  r + (1.0 - done) \gamma \max_{a'} Q^*_{target}(s', a')\\where :math:`a'` is determined by\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[a' = argmax_a Q_{online}(s', a)\]</div>
+<p>Let’s calculate <em>TD Target</em> now.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Instruction<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>For a batch of experiences consisting of next_states <span class="math notranslate nohighlight">\(s'\)</span> and
+rewards <span class="math notranslate nohighlight">\(r\)</span>, calculate the <em>TD target</em>. Note that <span class="math notranslate nohighlight">\(a'\)</span> is
+not explicitly given, so we will need to first obtain that using
+<span class="math notranslate nohighlight">\(Q_{online}\)</span> and next state <span class="math notranslate nohighlight">\(s'\)</span>.</p>
+<p>Return the results in <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code> format.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">calculate_target_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input</span>
+<span class="sd">      next_state (np.array)</span>
+<span class="sd">        dimension is (batch_size x state_dim), each item is an observation</span>
+<span class="sd">        for the next state</span>
+<span class="sd">      reward (np.array)</span>
+<span class="sd">        dimension is (batch_size), each item is a float representing the</span>
+<span class="sd">        reward collected from (state -&gt; next state) transition</span>
+
+<span class="sd">    Output</span>
+<span class="sd">      target_q (torch.tensor)</span>
+<span class="sd">        dimension of (batch_size), each item is a target Q value of the current</span>
+<span class="sd">        state-action pair, calculated based on reward collected and</span>
+<span class="sd">        estimated Q value for next state</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">next_state_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+
+    <span class="n">online_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="s1">&#39;online&#39;</span><span class="p">)</span>
+    <span class="c1"># TODO select the best action at next state based on online Q function</span>
+    <span class="n">action_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">online_q</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># TODO calculate target Q values based on action_idx and reward</span>
+    <span class="n">target_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">done</span><span class="p">)</span> <span class="o">*</span> <span class="n">next_state_q</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">action_idx</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
+
+    <span class="k">return</span> <span class="n">target_q</span>
+</pre></div>
+</div>
+<div class="section" id="loss">
+<h3>Loss<a class="headerlink" href="#loss" title="Permalink to this headline">¶</a></h3>
+<p>Let’s now calculate the loss between TD target and TD estimate. Loss is
+what drives the optimization and updates <span class="math notranslate nohighlight">\(Q^*_{online}\)</span> to better
+predict <span class="math notranslate nohighlight">\(Q^*\)</span> in the future. We will calculate the mean squared
+loss in the form of:</p>
+<p><span class="math notranslate nohighlight">\(MSE = \frac{1}{n}\sum_{i=0}^n( y_i - \hat{y}_i)^2\)</span></p>
+<p>PyTorch already has an implementation of this loss:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">pred_q</span><span class="p">,</span> <span class="n">target_q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>Instruction<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>Given <em>TD Estimate</em> (<code class="docutils literal notranslate"><span class="pre">pred_q</span></code>) and <em>TD Target</em> (<code class="docutils literal notranslate"><span class="pre">target_q</span></code>) for the
+batch of experiences, return the Mean Squared Error.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">calculate_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_q</span><span class="p">,</span> <span class="n">target_q</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input</span>
+<span class="sd">      pred_q (torch.tensor)</span>
+<span class="sd">        dimension is (batch_size), each item is an observation</span>
+<span class="sd">        for the next state</span>
+<span class="sd">      target_q (torch.tensor)</span>
+<span class="sd">        dimension is (batch_size), each item is a float representing the</span>
+<span class="sd">        reward collected from (state -&gt; next state) transition</span>
+
+<span class="sd">    Output</span>
+<span class="sd">      loss (torch.tensor)</span>
+<span class="sd">        a single value representing the MSE loss of pred_q and target_q</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO calculate mean squared error loss</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">pred_q</span><span class="p">,</span> <span class="n">target_q</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+</pre></div>
+</div>
+<div class="section" id="update-q-online">
+<h3>Update <span class="math notranslate nohighlight">\(Q^*_{online}\)</span><a class="headerlink" href="#update-q-online" title="Permalink to this headline">¶</a></h3>
+<p>As the final step to complete <code class="docutils literal notranslate"><span class="pre">Mario.learn()</span></code>, we use Adam optimizer
+to optimize upon the above calculated <code class="docutils literal notranslate"><span class="pre">loss</span></code>. This updates the
+parameters inside <span class="math notranslate nohighlight">\(Q^*_{online}\)</span> function so that TD estimate gets
+closer to TD target.</p>
+<p>You’ve coded a lot so far. We got this section covered for you.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span>
+    <span class="c1"># optimizer updates parameters in online_q using backpropagation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">online_q</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.00025</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">update_online_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loss</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input</span>
+<span class="sd">      loss (torch.tensor)</span>
+<span class="sd">        a single value representing the Huber loss of pred_q and target_q</span>
+<span class="sd">      optimizer</span>
+<span class="sd">        optimizer updates parameter in our online_q neural network to reduce</span>
+<span class="sd">        the loss</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># update online_q</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-q-target">
+<h3>Update <span class="math notranslate nohighlight">\(Q^*_{target}\)</span><a class="headerlink" href="#update-q-target" title="Permalink to this headline">¶</a></h3>
+<p>We need to sync <span class="math notranslate nohighlight">\(Q^*_{target}\)</span> with <span class="math notranslate nohighlight">\(Q^*_{online}\)</span> every
+once in a while, to make sure our <span class="math notranslate nohighlight">\(Q^*_{target}\)</span> is up-to-date. We
+use <code class="docutils literal notranslate"><span class="pre">self.copy_every</span></code> to control how often we do the sync-up.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">sync_target_q</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Update target action value (Q) function with online action value (Q) function</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">target_q</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">online_q</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="put-them-together">
+<h3>Put them Together<a class="headerlink" href="#put-them-together" title="Permalink to this headline">¶</a></h3>
+<p>With all the helper methods implemented, let’s revisit our
+<code class="docutils literal notranslate"><span class="pre">Mario.learn()</span></code> function.</p>
+</div>
+<div class="section" id="id10">
+<h3>Instructions<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>We’ve added some logic on checking learning criterion. For the rest, use
+the helper methods defined above to complete <code class="docutils literal notranslate"><span class="pre">Mario.learn()</span></code> function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span>
+        <span class="c1"># number of experiences to collect before training</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">burnin</span> <span class="o">=</span> <span class="mf">1e5</span>
+        <span class="c1"># number of experiences between updating online q</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learn_every</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="c1"># number of experiences between updating target q with online q</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync_every</span> <span class="o">=</span> <span class="mf">1e4</span>
+        <span class="c1"># number of experiences between saving the current agent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_every</span> <span class="o">=</span> <span class="mf">1e5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s2">&quot;checkpoints&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current agent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;online_q_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="si">}</span><span class="s2">.chkpt&quot;</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">online_q</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">save_path</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update prediction action value (Q) function with a batch of experiences</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># sync target network</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">sync_every</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sync_target_q</span><span class="p">()</span>
+        <span class="c1"># checkpoint model</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_every</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
+        <span class="c1"># break if burn-in</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">burnin</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="c1"># break if no training</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">learn_every</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># TODO: sample a batch of experiences from self.memory</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_batch</span><span class="p">()</span>
+
+        <span class="c1"># TODO: calculate prediction Q values for the batch</span>
+        <span class="n">pred_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_prediction_q</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+
+        <span class="c1"># TODO: calculate target Q values for the batch</span>
+        <span class="n">target_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_target_q</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+
+        <span class="c1"># TODO: calculate huber loss of target and prediction values</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_loss</span><span class="p">(</span><span class="n">pred_q</span><span class="p">,</span> <span class="n">target_q</span><span class="p">)</span>
+
+        <span class="c1"># TODO: update target network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_online_q</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;udpating&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="start-learning">
+<h1>Start Learning!<a class="headerlink" href="#start-learning" title="Permalink to this headline">¶</a></h1>
+<p>With the agent and environment wrappers implemented, we are ready to put
+Mario in the game and start learning! We will wrap the learning process
+in a big <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that repeats the process of acting, remembering
+and learning by Mario.</p>
+<p>The meat of the algorithm is in the loop, let’s take a closer look:</p>
+<ol class="arabic simple">
+<li><p>At the beginning of a new episode, we need to reinitialize the
+<code class="docutils literal notranslate"><span class="pre">state</span></code> by calling <code class="docutils literal notranslate"><span class="pre">env.reset()</span></code></p></li>
+<li><p>Then we need several variables to hold the logging information we
+collected in this episode:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ep_reward</span></code>: reward collected in this episode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ep_length</span></code>: total length of this episode</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Now we are inside the while loop that plays the game, and we can call
+<code class="docutils literal notranslate"><span class="pre">env.render()</span></code> to display the visual</p></li>
+<li><p>We want to act by calling <code class="docutils literal notranslate"><span class="pre">Mario.act(state)</span></code> now. Remember our
+action follows the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">action
+policy</a>,
+which is determined by <span class="math notranslate nohighlight">\(Q^*_{online}\)</span>.</p></li>
+<li><p>Perform the above selected action on env by calling
+<code class="docutils literal notranslate"><span class="pre">env.step(action)</span></code>. Collect the environment feedback: next_state,
+reward, if Mario is dead (done) and info.</p></li>
+<li><p>Store the current experience into Mario’s memory, by calling
+<code class="docutils literal notranslate"><span class="pre">Mario.remember(exp)</span></code>.</p></li>
+<li><p>Learn by drawing experiences from Mario’s memory and update the
+action policy, by calling <code class="docutils literal notranslate"><span class="pre">Mario.learn()</span></code>.</p></li>
+<li><p>Update logging info.</p></li>
+<li><p>Update state to prepare for next step.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mario</span> <span class="o">=</span> <span class="n">Mario</span><span class="p">(</span><span class="n">state_dim</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">84</span><span class="p">),</span> <span class="n">action_dim</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+<span class="n">episodes</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1">### for Loop that train the model num_episodes times by playing the game</span>
+
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">episodes</span><span class="p">):</span>
+
+    <span class="c1"># 1. Reset env/restart the game</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="c1"># 2. Logging</span>
+    <span class="n">ep_reward</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">ep_length</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Play the game!</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+        <span class="c1"># 3. Show environment (the visual)</span>
+
+        <span class="c1"># 4. Run agent on the state</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">mario</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+        <span class="c1"># 5. Agent performs action</span>
+        <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="c1"># 6. Remember</span>
+        <span class="n">mario</span><span class="o">.</span><span class="n">remember</span><span class="p">(</span><span class="n">experience</span><span class="o">=</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">))</span>
+
+        <span class="c1"># 7. Learn</span>
+        <span class="n">mario</span><span class="o">.</span><span class="n">learn</span><span class="p">()</span>
+
+        <span class="c1"># 8. Logging</span>
+        <span class="n">ep_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="n">ep_length</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># 9. Update state</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span>
+
+        <span class="c1"># If done break loop</span>
+        <span class="k">if</span> <span class="n">done</span> <span class="ow">or</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;flag_get&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;episode length: </span><span class="si">{</span><span class="n">ep_length</span><span class="si">}</span><span class="s2">, reward: </span><span class="si">{</span><span class="n">ep_reward</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>episode length: 40, reward: 231.0
+episode length: 40, reward: 231.0
+episode length: 104, reward: 627.0
+episode length: 167, reward: 634.0
+episode length: 40, reward: 231.0
+episode length: 115, reward: 584.0
+episode length: 588, reward: 726.0
+episode length: 297, reward: 703.0
+episode length: 109, reward: 601.0
+episode length: 319, reward: 683.0
+</pre></div>
+</div>
+</div>
+<div class="section" id="discussion">
+<h1>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="off-policy">
+<h2>Off-policy<a class="headerlink" href="#off-policy" title="Permalink to this headline">¶</a></h2>
+<p>Two major categories of RL algorithms are on-policy and off-policy. The
+algorithm we used, Q-learning, is an example of off-policy algorithm.</p>
+<p>What this means is that the experiences that Mario learns from, do not
+need to be generated from the current action policy. Mario is able to
+learn from very distant memory that are generated with an outdated
+action policy. In our case, how <em>distant</em> this memory could extend to is
+decided by <code class="docutils literal notranslate"><span class="pre">Mario.max_memory</span></code>.</p>
+<p>On-policy algorithm, on the other hand, requires that Mario learns from
+fresh experiences generated with current action policy. Examples include
+<a class="reference external" href="https://spinningup.openai.com/en/latest/spinningup/rl_intro3.html">policy gradient
+method</a>.</p>
+<p><strong>Why do we want to sample data points from all past experiences rather
+than the most recent ones(for example, from the previous episode), which
+are newly trained with higher accuracy?</strong></p>
+<p>The intuition is behind the tradeoff between these two approaches:</p>
+<p>Do we want to train on data that are generated from a small-size dataset
+with relatively high quality or a huge-size dataset with relatively
+lower quality?</p>
+<p>The answer is the latter, because the more data we have, the more of a
+wholistic, comprehensive point of view we have on the overall behavior
+of the system we have, in our case, the Mario game. Limited size dataset
+has the danger of overfitting and overlooking bigger pictures of the
+entire action/state space.</p>
+<p>Remember, Reinforcement Learning is all about exploring different
+scenarios(state) and keeping improving based on trial and errors,
+generated from the interactions between the <strong>agent</strong>(action) and the
+<strong>environmental feedback</strong>(reward).</p>
+</div>
+<div class="section" id="why-two-q-functions">
+<h2>Why two <span class="math notranslate nohighlight">\(Q^*\)</span> functions?<a class="headerlink" href="#why-two-q-functions" title="Permalink to this headline">¶</a></h2>
+<p>We defined two <span class="math notranslate nohighlight">\(Q^*\)</span> functions, <span class="math notranslate nohighlight">\(Q^*_{online}\)</span> and
+<span class="math notranslate nohighlight">\(Q^*_{target}\)</span>. Both represent the exact same thing: <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=snRMrCIccEx8">optimal
+value action
+function</a>.
+We use <span class="math notranslate nohighlight">\(Q^*_{online}\)</span> in the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=2abP5k2kcRnn">TD
+estimate</a>
+and <span class="math notranslate nohighlight">\(Q^*_{target}\)</span> in the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=Q072-fLecSkb">TD
+target</a>.
+This is to prevent the optimization divergence during Q-learning update:</p>
+<div class="math notranslate nohighlight">
+\[Q^*(s, a) \leftarrow Q^*(s, a)+\alpha (r + \gamma \max_{a'} Q^*(s', a') -Q^*(s, a))\]</div>
+<p>where 1st, 2nd and 4th <span class="math notranslate nohighlight">\(Q^*(s, a)\)</span> are using <span class="math notranslate nohighlight">\(Q^*_{online}\)</span>,
+and 3rd <span class="math notranslate nohighlight">\(Q^*(s', a')\)</span> is using <span class="math notranslate nohighlight">\(Q^*_{target}\)</span>.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  25.518 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-beginner-mario-tutorial-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/870a41c4fba784cea17b840ce25b4337/mario_tutorial.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">mario_tutorial.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/d3d67571dbe22ede85ffc2a6f3f46367/mario_tutorial.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">mario_tutorial.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr class="helpful-hr hr-top">
+      <div class="helpful-container">
+        <div class="helpful-question">Was this helpful?</div>
+        <div class="helpful-question yes-link" data-behavior="was-this-helpful-event" data-response="yes">Yes</div>
+        <div class="helpful-question no-link" data-behavior="was-this-helpful-event" data-response="no">No</div>
+        <div class="was-helpful-thank-you">Thank you</div>
+      </div>
+    <hr class="helpful-hr hr-bottom"/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, PyTorch.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">Welcome to Mad Mario!</a><ul>
+<li><a class="reference internal" href="#lets-get-started">Let’s get started!</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#environment">Environment</a><ul>
+<li><a class="reference internal" href="#wrappers">Wrappers</a><ul>
+<li><a class="reference internal" href="#instructions">Instructions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-wrapper">Custom Wrapper</a><ul>
+<li><a class="reference internal" href="#instruction">Instruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#agent">Agent</a><ul>
+<li><a class="reference internal" href="#initialize">Initialize</a><ul>
+<li><a class="reference internal" href="#id1">Instruction</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#predict-q">Predict <span class="math notranslate nohighlight">\(Q^*\)</span></a><ul>
+<li><a class="reference internal" href="#q-online-and-q-target"><span class="math notranslate nohighlight">\(Q^*_{online}\)</span> and <span class="math notranslate nohighlight">\(Q^*_{target}\)</span></a></li>
+<li><a class="reference internal" href="#id2">Instructions</a></li>
+<li><a class="reference internal" href="#calling-q">Calling <span class="math notranslate nohighlight">\(Q^*\)</span></a></li>
+<li><a class="reference internal" href="#id3">Instruction</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#act">Act</a><ul>
+<li><a class="reference internal" href="#id4">Instruction</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remember">Remember</a><ul>
+<li><a class="reference internal" href="#id5">Instruction</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#learn">Learn</a><ul>
+<li><a class="reference internal" href="#experience-sampling">Experience Sampling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">Instruction</a><ul>
+<li><a class="reference internal" href="#td-estimate">TD Estimate</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">Instruction</a><ul>
+<li><a class="reference internal" href="#td-target">TD Target</a></li>
+<li><a class="reference internal" href="#caveats">Caveats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">Instruction</a><ul>
+<li><a class="reference internal" href="#loss">Loss</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">Instruction</a><ul>
+<li><a class="reference internal" href="#update-q-online">Update <span class="math notranslate nohighlight">\(Q^*_{online}\)</span></a></li>
+<li><a class="reference internal" href="#update-q-target">Update <span class="math notranslate nohighlight">\(Q^*_{target}\)</span></a></li>
+<li><a class="reference internal" href="#put-them-together">Put them Together</a></li>
+<li><a class="reference internal" href="#id10">Instructions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#start-learning">Start Learning!</a></li>
+<li><a class="reference internal" href="#discussion">Discussion</a><ul>
+<li><a class="reference internal" href="#off-policy">Off-policy</a></li>
+<li><a class="reference internal" href="#why-two-q-functions">Why two <span class="math notranslate nohighlight">\(Q^*\)</span> functions?</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90545585-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col follow-us-col">
+          <ul>
+            <li class="list-title">Stay Connected</li>
+            <li>
+              <div id="mc_embed_signup">
+                <form
+                  action="https://twitter.us14.list-manage.com/subscribe/post?u=75419c71fe0a935e53dfa4a3f&id=91d0dccd39"
+                  method="post"
+                  id="mc-embedded-subscribe-form"
+                  name="mc-embedded-subscribe-form"
+                  class="email-subscribe-form validate"
+                  target="_blank"
+                  novalidate>
+                  <div id="mc_embed_signup_scroll" class="email-subscribe-form-fields-wrapper">
+                    <div class="mc-field-group">
+                      <label for="mce-EMAIL" style="display:none;">Email Address</label>
+                      <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+                    </div>
+
+                    <div id="mce-responses" class="clear">
+                      <div class="response" id="mce-error-response" style="display:none"></div>
+                      <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_75419c71fe0a935e53dfa4a3f_91d0dccd39" tabindex="-1" value=""></div>
+
+                    <div class="clear">
+                      <input type="submit" value="" name="subscribe" id="mc-embedded-subscribe" class="button email-subscribe-button">
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </li>
+          </ul>
+
+          <div class="footer-social-icons">
+            <a href="https://www.facebook.com/pytorch" target="_blank" class="facebook"></a>
+            <a href="https://twitter.com/pytorch" target="_blank" class="twitter"></a>
+            <a href="https://www.youtube.com/pytorch" target="_blank" class="youtube"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://pytorch.org/get-started">Get Started</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/features">Features</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/ecosystem">Ecosystem</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/mobile">Mobile</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/hub">PyTorch Hub</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/blog/">Blog</a>
+          </li>
+
+          <li class="active">
+            <a href="https://pytorch.org/tutorials">Tutorials</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/docs/stable/index.html">Docs</a>
+          </li>
+
+          <li>
+            <a href="https://pytorch.org/resources">Resources</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/pytorch/pytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>
