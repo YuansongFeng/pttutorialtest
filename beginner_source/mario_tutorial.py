@@ -1208,7 +1208,7 @@ class Mario(Mario):
 #
 
 mario = Mario(state_dim=(4, 84, 84), action_dim=env.action_space.n)
-episodes = 10000
+episodes = 10
 
 ### for Loop that train the model num_episodes times by playing the game
 
