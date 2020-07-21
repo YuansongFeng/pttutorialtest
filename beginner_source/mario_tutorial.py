@@ -161,6 +161,7 @@ from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym.spaces import Box
 import cv2
+import numpy as np
 
 class ResizeObservation(gym.ObservationWrapper):
     """Downsample the image observation to a square image. """
@@ -505,7 +506,6 @@ class Mario(object):
 #
 
 import torch.nn as nn
-import numpy as np
 
 class ConvNet(nn.Module):
     '''mini cnn structure
