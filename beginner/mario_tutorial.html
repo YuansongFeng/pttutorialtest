@@ -281,84 +281,8 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-beginner-mario-tutorial-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<p class="sphx-glr-example-title" id="sphx-glr-beginner-mario-tutorial-py">Mad Mario</p>
-<p>A reinforcement learning tutorial that builds a self-learning
-super mario bro.</p>
-<p>Pre-MVP tutorial for walking users through building a learning Mario.
-Guidelines for creating this notebook (feel free to add/edit): 1.
-Extensive explanation (link to AI cheatsheet where necessary) 2. Only
-ask for core logics</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install gym pyvirtualdisplay &gt; /dev/null 2&gt;&amp;1</span>
-<span class="c1"># !apt-get install -y xvfb python-opengl ffmpeg &gt; /dev/null 2&gt;&amp;1</span>
-<span class="c1"># !pip install gym-super-mario-bros==7.3.0 &gt; /dev/null 2&gt;&amp;1</span>
-
-<span class="c1"># from IPython.display import HTML</span>
-<span class="c1"># from IPython import display as ipythondisplay</span>
-<span class="c1"># import glob</span>
-<span class="c1"># import io</span>
-<span class="c1"># import base64</span>
-
-<span class="c1"># from pyvirtualdisplay import Display</span>
-<span class="c1"># display = Display(visible=0, size=(1400, 900))</span>
-<span class="c1"># display.start()</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Utility functions to enable video recording of gym environment and displaying it</span>
-<span class="sd">To enable video, just do &quot;env = wrap_env(env)&quot;&quot;</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># def show_video():</span>
-<span class="c1">#   mp4list = glob.glob(&#39;video/*.mp4&#39;)</span>
-<span class="c1">#   if len(mp4list) &gt; 0:</span>
-<span class="c1">#     mp4 = mp4list[0]</span>
-<span class="c1">#     video = io.open(mp4, &#39;r+b&#39;).read()</span>
-<span class="c1">#     encoded = base64.b64encode(video)</span>
-<span class="c1">#     ipythondisplay.display(HTML(data=&#39;&#39;&#39;&lt;video alt=&quot;test&quot; autoplay</span>
-<span class="c1">#                 loop controls style=&quot;height: 400px;&quot;&gt;</span>
-<span class="c1">#                 &lt;source src=&quot;data:video/mp4;base64,{0}&quot; type=&quot;video/mp4&quot; /&gt;</span>
-<span class="c1">#              &lt;/video&gt;&#39;&#39;&#39;.format(encoded.decode(&#39;ascii&#39;))))</span>
-<span class="c1">#   else:</span>
-<span class="c1">#     print(&quot;Could not find video&quot;)</span>
-
-
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="k">class</span> <span class="nc">ConvNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;mini cnn structure</span>
-<span class="sd">    input -&gt; (conv2d + relu) x 3 -&gt; flatten -&gt; (dense + relu) x 2 -&gt; output</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ConvNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">input_dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3136</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-        <span class="c1"># input: B x C x H x W</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">input</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">x</span>
-</pre></div>
-</div>
-<div class="section" id="welcome-to-mad-mario">
-<h1>Welcome to Mad Mario!<a class="headerlink" href="#welcome-to-mad-mario" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="welcome-to-mad-mario">
+<span id="sphx-glr-beginner-mario-tutorial-py"></span><h1>Welcome to Mad Mario!<a class="headerlink" href="#welcome-to-mad-mario" title="Permalink to this headline">¶</a></h1>
 <p>We put together this project to walk you through fundamentals of
 reinforcement learning. Along the project, you will implement a smart
 Mario that learns to complete levels on itself. To begin with, you don’t
@@ -372,6 +296,9 @@ implement a classic RL algorithm, Q-learning, on yourself.</p>
 or equivalent level of math/statistics background – that said, don’t
 worry if memory is blurry. Just leave comments anywhere you feel
 confused, and we will explain the section in more details.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install gym-super-mario-bros==7.3.0 &gt; /dev/null 2&gt;&amp;1</span>
+</pre></div>
+</div>
 <div class="section" id="lets-get-started">
 <h2>Let’s get started!<a class="headerlink" href="#lets-get-started" title="Permalink to this headline">¶</a></h2>
 <p>First thing first, let’s look at what we will build: Just like when we
@@ -414,41 +341,26 @@ a
 <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=rm0EqRQqbo09">reward</a>
 and the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv">next
 state</a>.</p>
-<p>Let’s try running the Mario environment.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import gym_super_mario_bros</span>
-<span class="c1"># from gym.wrappers import Monitor</span>
-<span class="c1"># from nes_py.wrappers import JoypadSpace</span>
-
-
-<span class="c1"># env = gym_super_mario_bros.make(&#39;SuperMarioBros-1-1-v0&#39;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">In our environment, Mario can make two actions: walk right and jump right</span>
-<span class="sd">For a full list of possible actions, see</span>
-<span class="sd">https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="c1"># env = JoypadSpace(</span>
-<span class="c1">#     env,</span>
-<span class="c1">#     [[&#39;right&#39;],</span>
-<span class="c1">#     [&#39;right&#39;, &#39;A&#39;]]</span>
-<span class="c1"># )</span>
-<span class="c1"># # env = Monitor(env, &#39;./video&#39;, force=True, mode = &#39;evaluation&#39;)</span>
-<span class="c1"># # Restart environment</span>
-<span class="c1"># env.reset()</span>
-<span class="c1"># for _ in range(1000):</span>
-<span class="c1">#   # render video output</span>
-<span class="c1">#   # env.render()</span>
-
-<span class="c1">#   # choose random action</span>
-<span class="c1">#   action = env.action_space.sample()</span>
-
-<span class="c1">#   # perform action on environment, environment provides feedback</span>
-<span class="c1">#   # with env.step() function</span>
-<span class="c1">#   env.step(action=action)</span>
-
-<span class="c1"># # Close environment</span>
-<span class="c1"># env.close()</span>
-
-<span class="c1"># show_video()</span>
+<p>Code for running the Mario environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Super Mario environment</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym_super_mario_bros</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;SuperMarioBros-1-1-v0&#39;</span><span class="p">)</span>
+<span class="c1"># Limit Mario action to be 1. walk right or 2. jump right</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">JoypadSpace</span><span class="p">(</span>
+    <span class="n">env</span><span class="p">,</span>
+    <span class="p">[[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">]]</span>
+<span class="p">)</span>
+<span class="c1"># Start environment</span>
+<span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  <span class="c1"># Render game output</span>
+  <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+  <span class="c1"># Choose random action</span>
+  <span class="n">action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+  <span class="c1"># Perform action</span>
+  <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+<span class="c1"># Close environment</span>
+<span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="wrappers">
@@ -461,9 +373,15 @@ reduces the size of state representation without losing much
 information. For the agent, its behavior doesn’t change whether it lives
 in a RGB world or grayscale world!</p>
 <p><strong>before wrapper</strong></p>
-<p><img alt="picture" src="https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt" /></p>
+<div class="figure align-default" id="id11">
+<img alt="picture" src="https://drive.google.com/uc?id=1c9-tUWFyk4u_vNNrkZo1Rg0e2FUcbF3N" />
+<p class="caption"><span class="caption-text">picture</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
 <p><strong>after wrapper</strong></p>
-<p><img alt="picture" src="https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt" /></p>
+<div class="figure align-default" id="id12">
+<img alt="picture" src="https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt" />
+<p class="caption"><span class="caption-text">picture</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
 <p>We apply a wrapper to environment in this fashion:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 </pre></div>
@@ -487,6 +405,7 @@ num_stack=4</p>
 <span class="kn">import</span> <span class="nn">gym_super_mario_bros</span>
 <span class="kn">from</span> <span class="nn">gym.spaces</span> <span class="kn">import</span> <span class="n">Box</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">class</span> <span class="nc">ResizeObservation</span><span class="p">(</span><span class="n">gym</span><span class="o">.</span><span class="n">ObservationWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Downsample the image observation to a square image. &quot;&quot;&quot;</span>
@@ -559,9 +478,9 @@ need to implement the <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 <p><strong>Final Wrapped State</strong></p>
-<div class="figure align-default" id="id11">
+<div class="figure align-default" id="id13">
 <img alt="picture" src="https://drive.google.com/uc?id=1zZU63qsuOKZIOwWt94z6cegOF2SMEmvD" />
-<p class="caption"><span class="caption-text">picture</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">picture</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>After applying the above wrappers to the environment, the final wrapped
 state consists of 4 gray-scaled consecutive frames stacked together, as
@@ -635,59 +554,59 @@ parameters.</p>
 <div class="section" id="id1">
 <h3>Instruction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Initialize these key parameters inside <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1.0</span></code></p>
-</div></blockquote>
-<p>Random Exploration Prabability. Under <cite>some probability
-:math:</cite>epsilon` &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id12"><span class="problematic" id="id13">1eN33dPVtdPViiS1njTW_</span></a>-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv&gt;`__,
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exploration_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>Random Exploration Prabability. Under <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv">some
+probability</a>,
 agent does not follow the <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ">optimal action
 policy</a>,
 but instead chooses a random action to explore the environment. A high
 exploration rate is important at the early stage of learning to ensure
 proper exploration and not falling to local optima. The exploration rate
 should decrease as agent improves its policy.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate_decay:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.99999975</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exploration_rate_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99999975</span>
+</pre></div>
+</div>
 <p>Decay rate of <code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code>. Agent rigorously explores space at
 the early stage, but gradually reduces its exploration rate to maintain
 action quality. In the later stage, agent already learns a fairly good
 policy, so we want it to follow its policy more frequently. Decrease
 <code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code> by the factor of <code class="docutils literal notranslate"><span class="pre">exploration_rate_decay</span></code> each
 time the agent acts.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">exploration_rate_min:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.1</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exploration_rate_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
 <p>Minimum <code class="docutils literal notranslate"><span class="pre">exploration_rate</span></code> that Mario can decays into. Note that this
 value could either be <code class="docutils literal notranslate"><span class="pre">0</span></code>, in which case Mario acts completely
 deterministiclly, or a very small number.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">discount_factor:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.9</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">discount_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span>
+</pre></div>
+</div>
 <p>Future reward discount factor. This is <span class="math notranslate nohighlight">\(\gamma\)</span> in the definition
 of
 <a class="reference external" href="https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=6lmIKuxsb6qu">return</a>.
 It serves to make agent give higher weight on the short-term rewards
 over future reward.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">batch_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">32</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span>
+</pre></div>
+</div>
 <p>Number of experiences used to update each time.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">state_dim</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state_dim</span>
+</pre></div>
+</div>
 <p>State space dimension. In Mario, this is 4 consecutive snapshots of the
 enviroment stacked together, where each snapshot is a 84*84 gray-scale
 image. This is passed in from the environment,
 <code class="docutils literal notranslate"><span class="pre">self.state_dim</span> <span class="pre">=</span> <span class="pre">(4,</span> <span class="pre">84,</span> <span class="pre">84)</span></code>.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">action_dim</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action_dim</span>
+</pre></div>
+</div>
 <p>Action space dimension. In Mario, this is the number of total possible
 actions. This is passed in from environment as well.</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">memory</span></code></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">memory</span>
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">memory</span></code> is a queue structure filled with Mario’s past experiences.
 Each experience consists of (state, next_state, action, reward, done).
 As Mario collects more experiences, old experiences are popped to make
@@ -739,9 +658,7 @@ policy</a></p>
 representing the action taken. To deal with image/video signal, we often
 use a <a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html">convolution neural
 network</a>.
-To save you time, we have created a simple
-<code class="docutils literal notranslate"><span class="pre">`ConvNet</span></code> &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id14"><span class="problematic" id="id15">1kptUkdESbxBC-yOfSYngynjV5Hge_</span></a>-t-#scrollTo=M27B_D2WEQ22&gt;`__
-for you.</p>
+To save you time, we have created a simple <code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> for you.</p>
 <p>Instead of passing action <span class="math notranslate nohighlight">\(a\)</span> together with state <span class="math notranslate nohighlight">\(s\)</span> into
 <span class="math notranslate nohighlight">\(Q^*\)</span> function, we pass only the state. <code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> returns a list
 of real values representing <span class="math notranslate nohighlight">\(Q^*\)</span> for <em>all actions</em>. Later we can
@@ -761,12 +678,45 @@ sections</a>.</p>
 </div>
 <div class="section" id="id2">
 <h3>Instructions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Use our provided
-<code class="docutils literal notranslate"><span class="pre">`ConvNet</span></code> &lt;<a class="reference external" href="https://colab.research.google.com/drive/">https://colab.research.google.com/drive/</a><a href="#id16"><span class="problematic" id="id17">1kptUkdESbxBC-yOfSYngynjV5Hge_</span></a>-t-#scrollTo=M27B_D2WEQ22&gt;`__
-to define <code class="docutils literal notranslate"><span class="pre">self.online_q</span></code> and <code class="docutils literal notranslate"><span class="pre">self.target_q</span></code> separately. Intialize
-<code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> with <code class="docutils literal notranslate"><span class="pre">input_dim=self.state_dim</span></code> and
-<code class="docutils literal notranslate"><span class="pre">output_dim=self.action_dim</span></code> for both <span class="math notranslate nohighlight">\(Q^*\)</span> functions.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
+<p>Use our provided <code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> to define <code class="docutils literal notranslate"><span class="pre">self.online_q</span></code> and
+<code class="docutils literal notranslate"><span class="pre">self.target_q</span></code> separately. Intialize <code class="docutils literal notranslate"><span class="pre">ConvNet</span></code> with
+<code class="docutils literal notranslate"><span class="pre">input_dim=self.state_dim</span></code> and <code class="docutils literal notranslate"><span class="pre">output_dim=self.action_dim</span></code> for both
+<span class="math notranslate nohighlight">\(Q^*\)</span> functions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">ConvNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;mini cnn structure</span>
+<span class="sd">    input -&gt; (conv2d + relu) x 3 -&gt; flatten -&gt; (dense + relu) x 2 -&gt; output</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConvNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">input_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3136</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="c1"># input: B x C x H x W</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">input</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">Mario</span><span class="p">(</span><span class="n">Mario</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">):</span>
       <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span>
       <span class="c1"># TODO: define online action value function</span>
@@ -874,9 +824,9 @@ operations on <em>torch.tensor</em>, which is the data type returned in
 experiences. Each time agent performs an action, it collects an
 experience which includes the current state, action it performs, the
 next state after performing the action, the reward it collected, and
-whether the game is finished or not. We use a Queue structure to save
-historic experience, consisting of (state, next_state, action, reward,
-done). We will refer to this Queue as our memory.</p>
+whether the game is finished or not.</p>
+<p>We use the <code class="docutils literal notranslate"><span class="pre">self.memory</span></code> defined above to store past experiences,
+consisting of (state, next_state, action, reward, done).</p>
 <div class="section" id="id5">
 <h3>Instruction<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Implement <code class="docutils literal notranslate"><span class="pre">Mario.remember()</span></code> to save the experience to Mario’s memory.</p>
@@ -886,7 +836,7 @@ done). We will refer to this Queue as our memory.</p>
 <span class="sd">        Input</span>
 <span class="sd">          experience =  (state, next_state, action, reward, done) tuple</span>
 <span class="sd">        Output</span>
-<span class="sd">            None</span>
+<span class="sd">          None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO Add the experience to memory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">experience</span><span class="p">)</span>
@@ -935,9 +885,9 @@ the above calculated loss to update <span class="math notranslate nohighlight">\
 <p>Mario learns by drawing past experiences from its memory. The memory is
 a queue data structure that stores each individual experience in the
 format of</p>
-<blockquote>
-<div><p>state, next_state, action, reward, done</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span>
+</pre></div>
+</div>
 <p>Examples of some experiences in Mario’s memory:</p>
 <ul class="simple">
 <li><p>state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> next_state: <img alt="pic" src="https://drive.google.com/uc?id=1qtR4qCURBq57UCrmObM6A5-CH26NYaHv" /> action: jump reward: 0.0 done: False</p></li>
@@ -1354,16 +1304,16 @@ action policy, by calling <code class="docutils literal notranslate"><span class
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>episode length: 40, reward: 231.0
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>episode length: 110, reward: 605.0
 episode length: 40, reward: 231.0
-episode length: 104, reward: 627.0
-episode length: 167, reward: 634.0
+episode length: 312, reward: 1018.0
+episode length: 115, reward: 712.0
 episode length: 40, reward: 231.0
-episode length: 115, reward: 584.0
-episode length: 588, reward: 726.0
-episode length: 297, reward: 703.0
-episode length: 109, reward: 601.0
-episode length: 319, reward: 683.0
+episode length: 40, reward: 231.0
+episode length: 749, reward: 924.0
+episode length: 44, reward: 223.0
+episode length: 388, reward: 716.0
+episode length: 44, reward: 223.0
 </pre></div>
 </div>
 </div>
@@ -1414,7 +1364,7 @@ This is to prevent the optimization divergence during Q-learning update:</p>
 \[Q^*(s, a) \leftarrow Q^*(s, a)+\alpha (r + \gamma \max_{a'} Q^*(s', a') -Q^*(s, a))\]</div>
 <p>where 1st, 2nd and 4th <span class="math notranslate nohighlight">\(Q^*(s, a)\)</span> are using <span class="math notranslate nohighlight">\(Q^*_{online}\)</span>,
 and 3rd <span class="math notranslate nohighlight">\(Q^*(s', a')\)</span> is using <span class="math notranslate nohighlight">\(Q^*_{target}\)</span>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  25.518 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  25.011 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-beginner-mario-tutorial-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/870a41c4fba784cea17b840ce25b4337/mario_tutorial.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">mario_tutorial.py</span></code></a></p>

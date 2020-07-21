@@ -1,107 +1,25 @@
 """
-Mad Mario
+Welcome to Mad Mario!
+=====================
 
-A reinforcement learning tutorial that builds a self-learning
-super mario bro.
+We put together this project to walk you through fundamentals of
+reinforcement learning. Along the project, you will implement a smart
+Mario that learns to complete levels on itself. To begin with, you don’t
+need to know anything about Reinforcement Learning (RL). In case you
+wanna peek ahead, here is a `cheatsheet on RL
+basics <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N?usp=sharing>`__
+that we will refer to throughout the project. At the end of the
+tutorial, you will gain a solid understanding of RL fundamentals and
+implement a classic RL algorithm, Q-learning, on yourself.
+
+It’s recommended that you have familiarity with Python and high school
+or equivalent level of math/statistics background – that said, don’t
+worry if memory is blurry. Just leave comments anywhere you feel
+confused, and we will explain the section in more details.
+
 """
 
-
-######################################################################
-# Pre-MVP tutorial for walking users through building a learning Mario.
-# Guidelines for creating this notebook (feel free to add/edit): 1.
-# Extensive explanation (link to AI cheatsheet where necessary) 2. Only
-# ask for core logics
-#
-
-# !pip install gym pyvirtualdisplay > /dev/null 2>&1
-# !apt-get install -y xvfb python-opengl ffmpeg > /dev/null 2>&1
 # !pip install gym-super-mario-bros==7.3.0 > /dev/null 2>&1
-
-# from IPython.display import HTML
-# from IPython import display as ipythondisplay
-# import glob
-# import io
-# import base64
-
-# from pyvirtualdisplay import Display
-# display = Display(visible=0, size=(1400, 900))
-# display.start()
-
-"""
-Utility functions to enable video recording of gym environment and displaying it
-To enable video, just do "env = wrap_env(env)""
-"""
-
-# def show_video():
-#   mp4list = glob.glob('video/*.mp4')
-#   if len(mp4list) > 0:
-#     mp4 = mp4list[0]
-#     video = io.open(mp4, 'r+b').read()
-#     encoded = base64.b64encode(video)
-#     ipythondisplay.display(HTML(data='''<video alt="test" autoplay
-#                 loop controls style="height: 400px;">
-#                 <source src="data:video/mp4;base64,{0}" type="video/mp4" />
-#              </video>'''.format(encoded.decode('ascii'))))
-#   else:
-#     print("Could not find video")
-
-
-import torch.nn as nn
-import numpy as np
-
-class ConvNet(nn.Module):
-    '''mini cnn structure
-    input -> (conv2d + relu) x 3 -> flatten -> (dense + relu) x 2 -> output
-    '''
-    def __init__(self, input_dim, output_dim):
-        super(ConvNet, self).__init__()
-        c, h, w = input_dim
-        self.conv_1 = nn.Conv2d(in_channels=c, out_channels=32, kernel_size=8, stride=4)
-        self.conv_2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2)
-        self.conv_3 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1)
-        self.relu = nn.ReLU()
-        self.flatten = nn.Flatten()
-        self.dense = nn.Linear(3136, 512)
-        self.output = nn.Linear(512, output_dim)
-
-    def forward(self, input):
-        # input: B x C x H x W
-        x = input
-        x = self.conv_1(x)
-        x = self.relu(x)
-        x = self.conv_2(x)
-        x = self.relu(x)
-        x = self.conv_3(x)
-        x = self.relu(x)
-
-        x = self.flatten(x)
-        x = self.dense(x)
-        x = self.relu(x)
-        x = self.output(x)
-
-        return x
-
-
-
-######################################################################
-# Welcome to Mad Mario!
-# =====================
-#
-# We put together this project to walk you through fundamentals of
-# reinforcement learning. Along the project, you will implement a smart
-# Mario that learns to complete levels on itself. To begin with, you don’t
-# need to know anything about Reinforcement Learning (RL). In case you
-# wanna peek ahead, here is a `cheatsheet on RL
-# basics <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N?usp=sharing>`__
-# that we will refer to throughout the project. At the end of the
-# tutorial, you will gain a solid understanding of RL fundamentals and
-# implement a classic RL algorithm, Q-learning, on yourself.
-#
-# It’s recommended that you have familiarity with Python and high school
-# or equivalent level of math/statistics background – that said, don’t
-# worry if memory is blurry. Just leave comments anywhere you feel
-# confused, and we will explain the section in more details.
-#
 
 
 ######################################################################
@@ -159,43 +77,30 @@ class ConvNet(nn.Module):
 # and the `next
 # state <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv>`__.
 #
-# Let’s try running the Mario environment.
+# Code for running the Mario environment:
 #
-
-# import gym_super_mario_bros
-# from gym.wrappers import Monitor
-# from nes_py.wrappers import JoypadSpace
-
-
-# env = gym_super_mario_bros.make('SuperMarioBros-1-1-v0')
-"""
-In our environment, Mario can make two actions: walk right and jump right
-For a full list of possible actions, see
-https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bros/actions.py
-"""
-# env = JoypadSpace(
-#     env,
-#     [['right'],
-#     ['right', 'A']]
-# )
-# # env = Monitor(env, './video', force=True, mode = 'evaluation')
-# # Restart environment
-# env.reset()
-# for _ in range(1000):
-#   # render video output
-#   # env.render()
-
-#   # choose random action
-#   action = env.action_space.sample()
-
-#   # perform action on environment, environment provides feedback
-#   # with env.step() function
-#   env.step(action=action)
-
-# # Close environment
-# env.close()
-
-# show_video()
+# ::
+#
+#    # Initialize Super Mario environment
+#    env = gym_super_mario_bros.make('SuperMarioBros-1-1-v0')
+#    # Limit Mario action to be 1. walk right or 2. jump right
+#    env = JoypadSpace(
+#        env,
+#        [['right'],
+#        ['right', 'A']]
+#    )
+#    # Start environment
+#    env.reset()
+#    for _ in range(1000):
+#      # Render game output
+#      env.render()
+#      # Choose random action
+#      action = env.action_space.sample()
+#      # Perform action
+#      env.step(action=action)
+#    # Close environment
+#    env.close()
+#
 
 
 ######################################################################
@@ -213,11 +118,17 @@ https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bro
 #
 # **before wrapper**
 #
-# |picture|
+# .. figure:: https://drive.google.com/uc?id=1c9-tUWFyk4u_vNNrkZo1Rg0e2FUcbF3N
+#    :alt: picture
+#
+#    picture
 #
 # **after wrapper**
 #
-# |picture|
+# .. figure:: https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt
+#    :alt: picture
+#
+#    picture
 #
 # We apply a wrapper to environment in this fashion:
 #
@@ -243,10 +154,6 @@ https://github.com/Kautenja/gym-super-mario-bros/blob/master/gym_super_mario_bro
 # keep_dim=False ``ResizeObservation``: shape=84 ``FrameStack``:
 # num_stack=4
 #
-# .. |picture| image:: https://drive.google.com/uc?id=1c9-tUWFyk4u_vNNrkZo1Rg0e2FUcbF3N
-# .. |picture| image:: https://drive.google.com/uc?id=1ED9brgnbPmUZL43Bl_x2FDmXd-hsHBQt
-#
-#
 
 import gym
 from gym.wrappers import FrameStack, GrayScaleObservation
@@ -254,6 +161,7 @@ from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym.spaces import Box
 import cv2
+import numpy as np
 
 class ResizeObservation(gym.ObservationWrapper):
     """Downsample the image observation to a square image. """
@@ -428,10 +336,12 @@ class Mario:
 #
 # Initialize these key parameters inside ``__init__()``.
 #
-#    ``exploration_rate: float = 1.0``
+# ::
 #
-# Random Exploration Prabability. Under `some probability
-# :math:`\epsilon` <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv>`__,
+#    exploration_rate: float = 1.0
+#
+# Random Exploration Prabability. Under `some
+# probability <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=_SnLbEzua1pv>`__,
 # agent does not follow the `optimal action
 # policy <https://colab.research.google.com/drive/1eN33dPVtdPViiS1njTW_-r-IYCDTFU7N#scrollTo=SZ313skqbSjQ>`__,
 # but instead chooses a random action to explore the environment. A high
@@ -439,7 +349,9 @@ class Mario:
 # proper exploration and not falling to local optima. The exploration rate
 # should decrease as agent improves its policy.
 #
-#    ``exploration_rate_decay: float = 0.99999975``
+# ::
+#
+#    exploration_rate_decay: float = 0.99999975
 #
 # Decay rate of ``exploration_rate``. Agent rigorously explores space at
 # the early stage, but gradually reduces its exploration rate to maintain
@@ -448,13 +360,17 @@ class Mario:
 # ``exploration_rate`` by the factor of ``exploration_rate_decay`` each
 # time the agent acts.
 #
-#    ``exploration_rate_min: float = 0.1``
+# ::
+#
+#    exploration_rate_min: float = 0.1
 #
 # Minimum ``exploration_rate`` that Mario can decays into. Note that this
 # value could either be ``0``, in which case Mario acts completely
 # deterministiclly, or a very small number.
 #
-#    ``discount_factor: float = 0.9``
+# ::
+#
+#    discount_factor: float = 0.9
 #
 # Future reward discount factor. This is :math:`\gamma` in the definition
 # of
@@ -462,23 +378,31 @@ class Mario:
 # It serves to make agent give higher weight on the short-term rewards
 # over future reward.
 #
-#    ``batch_size: int = 32``
+# ::
+#
+#    batch_size: int = 32
 #
 # Number of experiences used to update each time.
 #
-#    ``state_dim``
+# ::
+#
+#    state_dim
 #
 # State space dimension. In Mario, this is 4 consecutive snapshots of the
 # enviroment stacked together, where each snapshot is a 84*84 gray-scale
 # image. This is passed in from the environment,
 # ``self.state_dim = (4, 84, 84)``.
 #
-#    ``action_dim``
+# ::
+#
+#    action_dim
 #
 # Action space dimension. In Mario, this is the number of total possible
 # actions. This is passed in from environment as well.
 #
-#    ``memory``
+# ::
+#
+#    memory
 #
 # ``memory`` is a queue structure filled with Mario’s past experiences.
 # Each experience consists of (state, next_state, action, reward, done).
@@ -548,9 +472,7 @@ class Mario(object):
 # representing the action taken. To deal with image/video signal, we often
 # use a `convolution neural
 # network <https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html>`__.
-# To save you time, we have created a simple
-# ```ConvNet`` <https://colab.research.google.com/drive/1kptUkdESbxBC-yOfSYngynjV5Hge_-t-#scrollTo=M27B_D2WEQ22>`__
-# for you.
+# To save you time, we have created a simple ``ConvNet`` for you.
 #
 # Instead of passing action :math:`a` together with state :math:`s` into
 # :math:`Q^*` function, we pass only the state. ``ConvNet`` returns a list
@@ -577,12 +499,45 @@ class Mario(object):
 # Instructions
 # ~~~~~~~~~~~~
 #
-# Use our provided
-# ```ConvNet`` <https://colab.research.google.com/drive/1kptUkdESbxBC-yOfSYngynjV5Hge_-t-#scrollTo=M27B_D2WEQ22>`__
-# to define ``self.online_q`` and ``self.target_q`` separately. Intialize
-# ``ConvNet`` with ``input_dim=self.state_dim`` and
-# ``output_dim=self.action_dim`` for both :math:`Q^*` functions.
+# Use our provided ``ConvNet`` to define ``self.online_q`` and
+# ``self.target_q`` separately. Intialize ``ConvNet`` with
+# ``input_dim=self.state_dim`` and ``output_dim=self.action_dim`` for both
+# :math:`Q^*` functions.
 #
+
+import torch.nn as nn
+
+class ConvNet(nn.Module):
+    '''mini cnn structure
+    input -> (conv2d + relu) x 3 -> flatten -> (dense + relu) x 2 -> output
+    '''
+    def __init__(self, input_dim, output_dim):
+        super(ConvNet, self).__init__()
+        c, h, w = input_dim
+        self.conv_1 = nn.Conv2d(in_channels=c, out_channels=32, kernel_size=8, stride=4)
+        self.conv_2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2)
+        self.conv_3 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1)
+        self.relu = nn.ReLU()
+        self.flatten = nn.Flatten()
+        self.dense = nn.Linear(3136, 512)
+        self.output = nn.Linear(512, output_dim)
+
+    def forward(self, input):
+        # input: B x C x H x W
+        x = input
+        x = self.conv_1(x)
+        x = self.relu(x)
+        x = self.conv_2(x)
+        x = self.relu(x)
+        x = self.conv_3(x)
+        x = self.relu(x)
+
+        x = self.flatten(x)
+        x = self.dense(x)
+        x = self.relu(x)
+        x = self.output(x)
+
+        return x
 
 class Mario(Mario):
     def __init__(self, state_dim, action_dim):
@@ -705,9 +660,10 @@ class Mario(Mario):
 # experiences. Each time agent performs an action, it collects an
 # experience which includes the current state, action it performs, the
 # next state after performing the action, the reward it collected, and
-# whether the game is finished or not. We use a Queue structure to save
-# historic experience, consisting of (state, next_state, action, reward,
-# done). We will refer to this Queue as our memory.
+# whether the game is finished or not.
+#
+# We use the ``self.memory`` defined above to store past experiences,
+# consisting of (state, next_state, action, reward, done).
 #
 # Instruction
 # ~~~~~~~~~~~
@@ -721,7 +677,7 @@ class Mario(Mario):
         Input
           experience =  (state, next_state, action, reward, done) tuple
         Output
-            None
+          None
         """
         # TODO Add the experience to memory
         self.memory.append(experience)
@@ -780,6 +736,8 @@ class Mario(Mario):
 # Mario learns by drawing past experiences from its memory. The memory is
 # a queue data structure that stores each individual experience in the
 # format of
+#
+# ::
 #
 #    state, next_state, action, reward, done
 #

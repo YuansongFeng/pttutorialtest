@@ -5,7 +5,7 @@
 
 Computation times
 =================
-**00:25.597** total execution time for **beginner** files:
+**00:25.058** total execution time for **beginner** files:
 
-- **00:25.518**: :ref:`sphx_glr_beginner_mario_tutorial.py` (``mario_tutorial.py``)
-- **00:00.079**: :ref:`sphx_glr_beginner_example_tutorial.py` (``example_tutorial.py``)
+- **00:25.011**: :ref:`sphx_glr_beginner_mario_tutorial.py` (``mario_tutorial.py``)
+- **00:00.047**: :ref:`sphx_glr_beginner_example_tutorial.py` (``example_tutorial.py``)
